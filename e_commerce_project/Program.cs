@@ -1,13 +1,35 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using e_commerce_project.Models;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// =======================
+// SERVİSLER (BURADA)
+// =======================
 
 // MVC
 builder.Services.AddControllersWithViews();
 
-// 🔴 SESSION SERVİSLERİ (EN ÜSTE)
-builder.Services.AddSession();
+// SESSION
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddHttpContextAccessor();
 
+// DB CONTEXT  ✅ (EN ÖNEMLİ KISIM)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DB"))
+);
+
 var app = builder.Build();
+
+// =======================
+// MIDDLEWARE (BURADA)
+// =======================
 
 if (!app.Environment.IsDevelopment())
 {
@@ -20,8 +42,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// 🔴 SESSION MIDDLEWARE (Routing ile Authorization arasına)
-app.UseSession();
+app.UseSession();        // ⚠️ Authorization’dan önce
 
 app.UseAuthorization();
 

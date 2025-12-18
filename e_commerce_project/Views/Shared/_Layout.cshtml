@@ -39,14 +39,32 @@
                             <i class="fa fa-shopping-bag fa-2x"></i>
                             <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                         </a>
-                       <a asp-controller="Home" asp-action="Login" class="my-auto text-decoration-none text-dark d-flex align-items-center">
-    <i class="fas fa-user fa-2x"></i>
+@{
+    var userName = Context?.Session?.GetString("UserName");
+    var isAdmin = Context?.Session?.GetString("IsAdmin");
+}
 
-   @if (Context?.Session?.GetString("IsAdmin") == "true")
-    {
-        <span class="ms-2 fw-bold text-primary">Admin</span>
-    }
-</a>
+@if (!string.IsNullOrEmpty(userName))
+{
+    <a class="my-auto text-decoration-none text-primary fw-bold d-flex align-items-center">
+        <i class="fas fa-user fa-2x"></i>
+        <span class="ms-2">
+            @userName
+            @if (isAdmin == "true")
+            {
+                <small class="ms-1">(Admin)</small>
+            }
+        </span>
+    </a>
+}
+else
+{
+    <a asp-controller="Home" asp-action="Login" class="my-auto text-dark">
+        <i class="fas fa-user fa-2x"></i>
+    </a>
+}
+
+
 
                     </div>
                 </div>
