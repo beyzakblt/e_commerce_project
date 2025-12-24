@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- ADMINLTE -->
+    <link rel="stylesheet" href="~/adminlte/css/adminlte.min.css" />
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="~/adminlte/plugins/fontawesome-free/css/all.min.css" />
+
+
+</head>
+<body>
+
+    <header>
+        <h2>ADMIN PANEL</h2>
+        <a asp-controller="Admin" asp-action="Logout">Çıkış</a>
+        <hr />
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+</body>
+</html>
