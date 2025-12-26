@@ -1,0 +1,55 @@
+﻿<div class="modal fade" id="YoneticiEkle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Kullanıcı Ekle</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form role="form" asp-action="YoneticiKayit" asp-controller="Kayit">
+                <div class="modal-body">
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Kullanıcı Adı</label>
+                            <input type="text" name="users" class="form-control" id="exampleInputEmail1" placeholder="Kullanıcı adı">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Şifre</label>
+                            <input type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label>Statu</label>
+                            <select class="form-control"  name="statu" style="width: 100%;">
+                                <option value="0">Yonetici</option>
+                                <option value="1">Müdür</option>
+                                <option value="2">Müdür Yardımcısı</option>
+                                <option value="3">Operasyon Sorumlusu</option>
+                                <option value="4">Satın Alma</option>
+                                <option value="5">Muhasebe</option>
+                                <option value="6">İnsan Kaynakları</option>
+                                <option value="7" selected>Personel</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Durum</label>
+                            <select class="form-control " name="durum" style="width: 100%;" >
+                                <option value="0" selected>Aktif</option>
+                                <option value="1">Pasif</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

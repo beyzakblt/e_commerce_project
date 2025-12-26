@@ -72,7 +72,7 @@ namespace e_commerce_project.Controllers
                 return RedirectToAction("Login");
             }
 
-            var yoneticiler = _context.Yoneticilers.ToList();
+            var yoneticiler = _context.Yoneticis.ToList();
             return View(yoneticiler);
         }
 

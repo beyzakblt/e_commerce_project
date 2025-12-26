@@ -11,7 +11,7 @@ public partial class Yonetici
 
     public string Pass { get; set; } = null!;
 
-    public bool Statu { get; set; }
+    public int Statu { get; set; }
 
-    public bool Durum { get; set; }
+    public int Durum { get; set; }
 }

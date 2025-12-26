@@ -13,7 +13,7 @@ public partial class AppDbContext : DbContext
     public DbSet<Kullanıcılar> Kullanıcılars { get; set; }
 
     // 🔹 YONETICI TABLOSU
-    public DbSet<Yonetici> Yoneticilers { get; set; }
+    public DbSet<Yonetici> Yoneticis { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

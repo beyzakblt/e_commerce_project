@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewData["Title"] = "Guncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Yonetici
+
+
+
+
+
+<!-- CONTENT HEADER -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Yönetici Güncelle</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Admin" asp-action="Index">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Yonetici" asp-action="Index">Yöneticiler</a>
+                    </li>
+                    <li class="breadcrumb-item active">Güncelle</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-edit"></i> Yönetici Bilgileri
+                        </h3>
+                    </div>
+
+                    <form asp-action="Guncelle" asp-controller="Yonetici" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label>Kullanıcı Adı</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="users"
+                                       value="@Model.Users"
+                                       required />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Statü</label>
+                                <select class="form-control" name="statu">
+                                    <option value="0" selected="@(Model.Statu == 0)">Yönetici</option>
+                                    <option value="1" selected="@(Model.Statu == 1)">Müdür</option>
+                                    <option value="2" selected="@(Model.Statu == 2)">Müdür Yardımcısı</option>
+                                    <option value="3" selected="@(Model.Statu == 3)">Operasyon</option>
+                                    <option value="4" selected="@(Model.Statu == 4)">Satın Alma</option>
+                                    <option value="5" selected="@(Model.Statu == 5)">Muhasebe</option>
+                                    <option value="6" selected="@(Model.Statu == 6)">İK</option>
+                                    <option value="7" selected="@(Model.Statu == 7)">Personel</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Durum</label>
+                                <select class="form-control" name="durum">
+                                    <option value="0" selected="@(Model.Durum == 0)">Pasif</option>
+                                    <option value="1" selected="@(Model.Durum == 1)">Aktif</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                Vazgeç
+                            </a>
+                            <button type="submit" class="btn btn-warning float-right">
+                                Güncelle
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

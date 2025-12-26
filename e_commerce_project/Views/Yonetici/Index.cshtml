@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model List<Yonetici>
+
+@functions {
+    string StatuText(int statu)
+    {
+        return statu switch
+        {
+            0 => "Yönetici",
+            1 => "Müdür",
+            2 => "Müdür Yardımcısı",
+            3 => "Operasyon",
+            4 => "Satın Alma",
+            5 => "Muhasebe",
+            6 => "İK",
+            7 => "Personel",
+            _ => "Bilinmiyor"
+        };
+    }
+
+    string DurumText(int durum)
+    {
+        return durum switch
+        {
+            0 => "Pasif",
+            1 => "Aktif",
+            _ => "Bilinmiyor"
+        };
+    }
+}
+
+<!-- CONTENT HEADER -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Yöneticiler</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Yöneticiler</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card card-primary card-outline">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title">
+        <i class="fas fa-users"></i>
+        Yönetici Listesi
+    </h3>
+
+   <a asp-controller="Yonetici"
+   asp-action="Ekle"
+   class="btn btn-primary btn-sm">
+    <i class="fas fa-plus"></i> Yeni Ekle
+</a>
+</div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover table-bordered text-center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th style="width:5%">#</th>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>Statü</th>
+                                    <th>Durum</th>
+                                    <th style="width:15%">İşlem</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var kisi in Model)
+                                    {
+                                        <tr>
+                                            <td>@kisi.Id</td>
+
+                                            <td class="font-weight-bold">
+                                                @kisi.Users
+                                            </td>
+                                             <td>
+    <span>
+        @StatuText(kisi.Statu)
+    </span>
+</td>
+
+<td>
+    <span>
+        @DurumText(kisi.Durum)
+    </span>
+</td>
+
+
+                                            <td>
+                                               <td>
+    <a asp-controller="Yonetici"
+       asp-action="Guncelle"
+       asp-route-id="@kisi.Id"
+       class="btn btn-warning btn-sm">
+        Düzenle
+    </a>
+
+    <a asp-controller="Yonetici"
+       asp-action="Sil"
+       asp-route-id="@kisi.Id"
+       class="btn btn-danger btn-sm"
+       onclick="return confirm('Silmek istediğine emin misin?')">
+        Sil
+    </a>
+</td>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5">Kayıt bulunamadı</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-footer clearfix">
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">«</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">»</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
