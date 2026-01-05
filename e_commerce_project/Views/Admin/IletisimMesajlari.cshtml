@@ -1,0 +1,53 @@
+﻿@model List<Iletisim>
+
+@{
+    ViewData["Title"] = "İletişim Mesajları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>İletişim Mesajları</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Ad Soyad</th>
+            <th>Email</th>
+            <th>Mesaj</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@(item.Okundu ? "" : "table-warning")">
+                <td>@item.AdSoyad</td>
+                <td>@item.Email</td>
+                <td>
+                    @(item.Mesaj.Length > 50
+                        ? item.Mesaj.Substring(0, 50) + "..."
+                        : item.Mesaj)
+                </td>
+                <td>
+                    <form asp-action="OkunduDegistir"
+                          asp-controller="Admin"
+                          method="post">
+                        <input type="hidden" name="id" value="@item.Id" />
+
+                        @if (item.Okundu)
+                        {
+                            <button class="btn btn-success btn-sm">
+                                Okundu
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-danger btn-sm">
+                                Okunmadı
+                            </button>
+                        }
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

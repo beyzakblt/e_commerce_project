@@ -17,6 +17,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Iletisim> Iletisims { get; set; }
 
+    public virtual DbSet<IletisimDurumLog> IletisimDurumLogs { get; set; }
+
     public virtual DbSet<Kullanıcılar> Kullanıcılars { get; set; }
 
     public virtual DbSet<Yonetici> Yoneticis { get; set; }
@@ -44,6 +46,17 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Tarih)
                 .HasColumnType("datetime")
                 .HasColumnName("tarih");
+        });
+
+        modelBuilder.Entity<IletisimDurumLog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Iletisim__3214EC070345F39E");
+
+            entity.ToTable("IletisimDurumLog");
+
+            entity.Property(e => e.Tarih)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
         });
 
         modelBuilder.Entity<Kullanıcılar>(entity =>

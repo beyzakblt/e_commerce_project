@@ -16,6 +16,11 @@ namespace e_commerce_project.Controllers
         // LİSTE
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("UserName") == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             var liste = _context.Yoneticis.ToList();
             return View(liste);
         }

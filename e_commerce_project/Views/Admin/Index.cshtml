@@ -3,6 +3,44 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+@model e_commerce_project.Models.OzelModel.MenuVeri
 
-<h1>Index</h1>
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>@Model.KullaniciSayisi</h3>
+                <p>Kullanıcılar</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-people"></i>
+            </div>
+            <a asp-controller="Admin"
+               asp-action="Kullanicilar"
+               class="small-box-footer">
+                Detay <i class="bi bi-arrow-right-circle"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="small-box bg-success">
+            <div class="inner">
+               <h3>
+    @(Model.MesajSayisi > 0 ? Model.MesajSayisi.ToString() : "Okunmamış Mesaj Yok")
+</h3>
+                <p>Mesajlar</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-envelope"></i>
+            </div>
+            <a asp-controller="Admin"
+               asp-action="IletisimMesajlari"
+               class="small-box-footer">
+                Detay <i class="bi bi-arrow-right-circle"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
 

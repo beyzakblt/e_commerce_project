@@ -46,7 +46,7 @@
 
 @if (!string.IsNullOrEmpty(userName))
 {
-    <a class="my-auto text-decoration-none text-primary fw-bold d-flex align-items-center">
+    <a class="my-auto text-decoration-none text-primary fw-bold d-flex align-items-center ">
         <i class="fas fa-user fa-2x"></i>
         <span class="ms-2">
             @userName
@@ -59,7 +59,7 @@
 }
 else
 {
-    <a asp-controller="Home" asp-action="Login" class="my-auto text-dark">
+    <a asp-controller="Admin" asp-action="Login" class="my-auto text-dark">
         <i class="fas fa-user fa-2x"></i>
     </a>
 }

@@ -27,6 +27,10 @@ namespace e_commerce_project.Controllers
         {
             return View();
         }
+        public IActionResult Urunlerimiz()
+        {
+            return View();
+        }
         [HttpGet]
         public IActionResult Iletisim()
         {

@@ -14,4 +14,6 @@ public partial class Iletisim
     public string? Mesaj { get; set; }
 
     public DateTime? Tarih { get; set; }
+
+    public bool Okundu { get; set; }
 }

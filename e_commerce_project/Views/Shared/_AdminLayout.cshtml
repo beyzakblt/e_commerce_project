@@ -1,33 +1,97 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-     <meta charset="utf-8" />
-    <title>@ViewData["Title"]</title>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Admin Panel</title>
 
-    <!-- BOOTSTRAP -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-    <!-- ADMINLTE -->
-    <link rel="stylesheet" href="~/adminlte/css/adminlte.min.css" />
+    <!-- AdminLTE -->
+    <link rel="stylesheet" href="~/css/adminlte.min.css" />
 
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="~/adminlte/plugins/fontawesome-free/css/all.min.css" />
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 
-
+    <!-- Site -->
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
 
-    <header>
-        <h2>ADMIN PANEL</h2>
-        <a asp-controller="Admin" asp-action="Logout">Çıkış</a>
-        <hr />
-    </header>
+<body class="hold-transition sidebar-mini">
 
-    <main>
-        @RenderBody()
-    </main>
- @Html.Partial("_Modallar");
+<div class="wrapper">
 
+    <!-- 🔷 ÜST BAR -->
+    <header class="p-3 bg-dark text-white">
+    <div class="container d-flex justify-content-between align-items-center">
+        <h4>Admin Panel</h4>
+
+        <nav>
+            <a asp-controller="Admin" asp-action="Index" class="text-white me-3">
+                Dashboard
+            </a>
+
+            <a asp-controller="Yonetici" asp-action="Index" class="text-white me-3">
+                Kullanıcılar
+            </a>
+
+            <a asp-controller="Admin" asp-action="IletisimMesajlari" class="text-white me-3">
+                Mesajlar
+            </a>
+
+            <a asp-controller="Admin" asp-action="Logout" class="text-danger">
+                Çıkış
+            </a>
+        </nav>
+    </div>
+</header>
+
+    <!-- 🔷 ANA ALAN -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- 🟦 SOL MENÜ -->
+            <aside class="col-md-2 bg-light min-vh-100 p-3">
+                <ul class="nav flex-column gap-2">
+
+                    <li class="nav-item">
+                        <a asp-controller="Admin"
+                           asp-action="Index"
+                           class="nav-link text-dark">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-controller="Admin"
+                           asp-action="Kullanicilar"
+                           class="nav-link text-dark">
+                            <i class="bi bi-people"></i> Kullanıcılar
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a asp-controller="Admin"
+                           asp-action="IletisimMesajlari"
+                           class="nav-link text-dark">
+                            <i class="bi bi-envelope"></i> Mesajlar
+                        </a>
+                    </li>
+
+                </ul>
+            </aside>
+
+            <!-- 🟩 CONTENT -->
+            <main class="col-md-10 p-4">
+                @RenderBody()
+            </main>
+
+        </div>
+    </div>
+
+</div>
+
+@Html.Partial("_Modallar")
 
 </body>
 </html>
