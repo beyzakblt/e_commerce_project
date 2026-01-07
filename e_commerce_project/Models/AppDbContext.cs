@@ -19,6 +19,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<IletisimDurumLog> IletisimDurumLogs { get; set; }
 
+    public DbSet<Musteri> Musteriler { get; set; }
+
     public virtual DbSet<Kullanıcılar> Kullanıcılars { get; set; }
 
     public virtual DbSet<Yonetici> Yoneticis { get; set; }

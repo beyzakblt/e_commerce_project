@@ -1,0 +1,87 @@
+﻿@model e_commerce_project.Models.Musteri
+
+@{
+    ViewData["Title"] = "Müşteri Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card shadow rounded-4 border-0">
+    <div class="card-header bg-primary text-white py-3">
+        <h5 class="mb-0"><i class="bi bi-person-plus me-2"></i>AJAX ile Hızlı Kayıt</h5>
+    </div>
+    <div class="card-body p-4">
+        <form id="musteriForm">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Ad Soyad</label>
+                    <input type="text" id="AdSoyad" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">E-posta</label>
+                    <input type="email" id="Email" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Telefon</label>
+                    <input type="text" id="Telefon" class="form-control" />
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label fw-bold">Adres</label>
+                    <textarea id="Adres" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="col-12 mt-4">
+                    <button type="button" id="btnKaydet" class="btn btn-primary px-5">
+                        <span id="btnText">Kaydet</span>
+                        <span id="btnLoader" class="spinner-border spinner-border-sm d-none"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <script>
+        $("#btnKaydet").click(function () {
+            // Form verilerini alıyoruz
+            var musteridata = {
+                AdSoyad: $("#AdSoyad").val(),
+                Email: $("#Email").val(),
+                Telefon: $("#Telefon").val(),
+                Adres: $("#Adres").val()
+            };
+
+            if (!musteridata.AdSoyad) {
+                Swal.fire("Hata", "Ad Soyad alanı zorunludur!", "error");
+                return;
+            }
+
+            // Görsel efektler
+            $("#btnText").addClass("d-none");
+            $("#btnLoader").removeClass("d-none");
+
+            // AJAX GÖNDERİMİ
+            $.ajax({
+                url: '/Admin/MusteriKaydetAjax',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(musteridata),
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire("Başarılı!", response.message, "success").then(() => {
+                            window.location.href = "/Admin/Musteriler"; // Listeye yönlendir
+                        });
+                    } else {
+                        Swal.fire("Hata!", response.message, "error");
+                    }
+                },
+                error: function () {
+                    Swal.fire("Hata!", "Sunucuya bağlanırken bir sorun oluştu.", "error");
+                },
+                complete: function () {
+                    $("#btnText").removeClass("d-none");
+                    $("#btnLoader").addClass("d-none");
+                }
+            });
+        });
+    </script>
+}

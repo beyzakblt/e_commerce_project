@@ -5,49 +5,146 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>İletişim Mesajları</h2>
+<style>
+    /* Sayfa Başlığı */
+    .page-header {
+        margin-bottom: 2rem;
+    }
+    .page-title {
+        font-weight: 800;
+        color: #1e293b;
+        font-size: 1.5rem;
+    }
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Ad Soyad</th>
-            <th>Email</th>
-            <th>Mesaj</th>
-            <th>Durum</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="@(item.Okundu ? "" : "table-warning")">
-                <td>@item.AdSoyad</td>
-                <td>@item.Email</td>
-                <td>
-                    @(item.Mesaj.Length > 50
-                        ? item.Mesaj.Substring(0, 50) + "..."
-                        : item.Mesaj)
-                </td>
-                <td>
-                    <form asp-action="OkunduDegistir"
-                          asp-controller="Admin"
-                          method="post">
-                        <input type="hidden" name="id" value="@item.Id" />
+    /* Tablo Kartı */
+    .table-container {
+        background: #fff;
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        border: none;
+    }
 
-                        @if (item.Okundu)
-                        {
-                            <button class="btn btn-success btn-sm">
-                                Okundu
-                            </button>
-                        }
-                        else
-                        {
-                            <button class="btn btn-danger btn-sm">
-                                Okunmadı
-                            </button>
-                        }
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    .custom-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 8px; /* Satırlar arası hafif boşluk */
+    }
+
+    .custom-table thead th {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1rem;
+        font-weight: 700;
+    }
+
+    .custom-table tbody tr {
+        background-color: #fcfcfd;
+        transition: all 0.2s;
+    }
+
+    .custom-table tbody tr:hover {
+        background-color: #f8fafc;
+        transform: scale(1.002);
+    }
+
+    .custom-table td {
+        padding: 1.2rem 1rem;
+        vertical-align: middle;
+        border: none;
+        color: #475569;
+        font-size: 0.95rem;
+    }
+
+    /* İlk ve son hücrelerin köşelerini yuvarlatma */
+    .custom-table td:first-child, .custom-table th:first-child { border-radius: 12px 0 0 12px; }
+    .custom-table td:last-child, .custom-table th:last-child { border-radius: 0 12px 12px 0; }
+
+    /* Okunmamış Satır Vurgusu */
+    .unread-row {
+        background-color: #fff9f0 !important; /* Çok hafif turuncu/sarı */
+        font-weight: 600;
+    }
+    .unread-row td { color: #1e293b; }
+
+    /* Badge (Durum) Tasarımı */
+    .status-badge {
+        padding: 6px 14px;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .badge-read { background: #dcfce7; color: #15803d; }
+    .badge-unread { background: #fee2e2; color: #b91c1c; }
+    
+    .status-badge:hover { opacity: 0.8; transform: translateY(-1px); }
+
+    .email-text {
+        color: #64748b;
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="page-header">
+    <h2 class="page-title">İletişim Mesajları</h2>
+    <p class="text-muted small">Müşterilerinizden gelen en güncel mesajları buradan yönetebilirsiniz.</p>
+</div>
+
+<div class="table-container shadow-sm">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Gönderen</th>
+                    <th>E-Posta</th>
+                    <th>Mesaj Özeti</th>
+                    <th class="text-center">Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="@(item.Okundu ? "" : "unread-row")">
+                        <td>
+                            <div class="fw-bold">@item.AdSoyad</div>
+                        </td>
+                        <td>
+                            <span class="email-text">@item.Email</span>
+                        </td>
+                        <td>
+                            <span class="text-truncate d-inline-block" style="max-width: 300px;">
+                                @(item.Mesaj.Length > 50 ? item.Mesaj.Substring(0, 50) + "..." : item.Mesaj)
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <form asp-action="OkunduDegistir" asp-controller="Admin" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                
+                                @if (item.Okundu)
+                                {
+                                    <button type="submit" class="status-badge badge-read">
+                                        <i class="bi bi-check2-all me-1"></i> Okundu
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="status-badge badge-unread">
+                                        <i class="bi bi-envelope-fill me-1"></i> Yeni
+                                    </button>
+                                }
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

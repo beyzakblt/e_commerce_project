@@ -145,6 +145,31 @@ namespace e_commerce_project.Controllers
 
             return RedirectToAction("IletisimMesajlari");
         }
+        // Müşteri Ekle Sayfası (Sadece View açar)
+        [HttpGet]
+        public IActionResult MusteriEkle()
+        {
+            if (HttpContext.Session.GetString("UserName") == null) return RedirectToAction("Login");
+            return View();
+        }
+
+        // AJAX ile gelen veriyi kaydeden metod
+        [HttpPost]
+        public IActionResult MusteriKaydetAjax([FromBody] Musteri model)
+        {
+            if (model == null) return Json(new { success = false, message = "Veri boş geldi!" });
+
+            try
+            {
+                _context.Musteriler.Add(model);
+                _context.SaveChanges();
+                return Json(new { success = true, message = "Müşteri başarıyla kaydedildi." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Hata: " + ex.Message });
+            }
+        }
 
         // =====================
         // LOGOUT

@@ -1,46 +1,123 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 @model e_commerce_project.Models.OzelModel.MenuVeri
 
-<div class="row">
-    <div class="col-lg-3 col-md-6 col-sm-12">
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3>@Model.KullaniciSayisi</h3>
-                <p>Kullanıcılar</p>
+<style>
+    /* Kartların genel stili */
+    .stat-card {
+        border: none;
+        border-radius: 20px;
+        padding: 1.8rem;
+        background: #fff;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    }
+
+    /* İkon kutuları */
+    .icon-box {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .bg-soft-info { background: #e0f2fe; color: #0ea5e9; }
+    .bg-soft-success { background: #dcfce7; color: #22c55e; }
+
+    /* Metin stilleri */
+    .stat-label {
+        color: #64748b;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+    }
+
+    .stat-value {
+        color: #1e293b;
+        font-size: 1.75rem;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .stat-link {
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid #f1f5f9;
+        transition: 0.2s;
+    }
+
+    .stat-link:hover {
+        opacity: 0.7;
+    }
+</style>
+
+<div class="row g-4">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-label">Toplam Kullanıcı</div>
+                    <div class="stat-value">@Model.KullaniciSayisi</div>
+                </div>
+                <div class="icon-box bg-soft-info">
+                    <i class="bi bi-people-fill"></i>
+                </div>
             </div>
-            <div class="icon">
-                <i class="bi bi-people"></i>
-            </div>
-            <a asp-controller="Admin"
-               asp-action="Kullanicilar"
-               class="small-box-footer">
-                Detay <i class="bi bi-arrow-right-circle"></i>
+            
+            <a asp-controller="Admin" asp-action="Kullanicilar" class="stat-link text-info">
+                Detaylı İncele <i class="bi bi-arrow-right-short fs-5"></i>
             </a>
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-6 col-sm-12">
-        <div class="small-box bg-success">
-            <div class="inner">
-               <h3>
-    @(Model.MesajSayisi > 0 ? Model.MesajSayisi.ToString() : "Okunmamış Mesaj Yok")
-</h3>
-                <p>Mesajlar</p>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="stat-label">Mesaj Bildirimleri</div>
+                    <div class="stat-value">
+                        @if (Model.MesajSayisi > 0)
+                        {
+                            <span>@Model.MesajSayisi <small class="fs-6 fw-normal text-muted">Yeni</small></span>
+                        }
+                        else
+                        {
+                            <span class="fs-5 fw-semibold text-muted">Mesaj Yok</span>
+                        }
+                    </div>
+                </div>
+                <div class="icon-box bg-soft-success">
+                    <i class="bi bi-envelope-heart-fill"></i>
+                </div>
             </div>
-            <div class="icon">
-                <i class="bi bi-envelope"></i>
-            </div>
-            <a asp-controller="Admin"
-               asp-action="IletisimMesajlari"
-               class="small-box-footer">
-                Detay <i class="bi bi-arrow-right-circle"></i>
+            
+            <a asp-controller="Admin" asp-action="IletisimMesajlari" class="stat-link text-success">
+                Mesajlara Git <i class="bi bi-arrow-right-short fs-5"></i>
             </a>
         </div>
     </div>
 </div>
-
-

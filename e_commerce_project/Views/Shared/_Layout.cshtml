@@ -46,25 +46,41 @@
 
 @if (!string.IsNullOrEmpty(userName))
 {
-    <a class="my-auto text-decoration-none text-primary fw-bold d-flex align-items-center ">
-        <i class="fas fa-user fa-2x"></i>
-        <span class="ms-2">
-            @userName
-            @if (isAdmin == "true")
-            {
-                <small class="ms-1">(Admin)</small>
-            }
-        </span>
-    </a>
+    <div class="d-flex align-items-center my-auto">
+        @if (isAdmin == "true")
+        {
+            <a href="/Admin/Index" class="text-decoration-none text-primary fw-bold d-flex align-items-center">
+                <i class="fas fa-user fa-2x"></i>
+                <span class="ms-2">@userName <small class="text-muted">(Admin)</small></span>
+            </a>
+        }
+        else
+        {
+            <a href="/" class="text-decoration-none text-primary fw-bold d-flex align-items-center">
+                <i class="fas fa-user fa-2x"></i>
+                <span class="ms-2">@userName</span>
+            </a>
+        }
+
+        <div class="dropdown">
+            <a class="dropdown-toggle ms-2 text-primary" href="#" role="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userMenu" style="border-radius: 12px;">
+                <li>
+                    <a class="dropdown-item py-2 text-danger" href="/Admin/Logout">
+                        <i class="fas fa-sign-out-alt me-2"></i> Çıkış Yap
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 }
 else
 {
-    <a asp-controller="Admin" asp-action="Login" class="my-auto text-dark">
+    <a href="/Admin/Login" class="my-auto text-dark">
         <i class="fas fa-user fa-2x"></i>
     </a>
 }
-
-
 
                     </div>
                 </div>
